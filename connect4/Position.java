@@ -191,7 +191,7 @@ public class Position
 	{
 		grid[column][columnMoves[column]] = 1 + (moves % 2);
 		moves++; 
-	//	columnMoves[column]++;
+		columnMoves[column]++;
 	}
 	
 	public int getMoves()
