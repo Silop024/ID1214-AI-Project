@@ -1,4 +1,4 @@
-package connect4;
+package com.ai.project;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,10 +20,11 @@ public class GUI extends JFrame {
     // Constructor, making an empty grid
     public GUI() {
         board = new Board();
-        ImageIcon iconEmpty = new ImageIcon("C:\\Users\\chimp\\Desktop\\AIProject-v2\\ProjectAI\\src\\connect4\\images\\empty.png");
+        ImageIcon iconEmpty = new ImageIcon("C:\\Users\\You Bastard!\\Desktop\\image\\empty.png");
 
         frame = new JFrame("Connect4 - BreadComrade, Inc"); // title of the game
         frame.setSize(750,650);  // size of the frame
+        frame.setResizable(false);
         frame.setLocationRelativeTo(null); // frame will open in the middle of screen
 
         panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -46,12 +47,7 @@ public class GUI extends JFrame {
 
                 });
                 panel.add(button);
-//                if (counter % 2 == 1) {
-//                    JButton jButton2 = new JButton();
-//                    jButton2.setName("2");
-//                    updater(jButton2);
-//                    // add the button to our panel
-//                }
+
             }
 
 
@@ -63,16 +59,14 @@ public class GUI extends JFrame {
 
     // all the shit happens here
     public void updater(JButton button) {
-        ImageIcon iconRed = new ImageIcon("C:\\Users\\chimp\\Desktop\\AIProject-v2\\ProjectAI\\src\\connect4\\images\\red.png");
-        ImageIcon iconYellow = new ImageIcon("C:\\Users\\chimp\\Desktop\\AIProject-v2\\ProjectAI\\src\\connect4\\images\\yellow.png");
+        ImageIcon iconRed = new ImageIcon("C:\\Users\\You Bastard!\\Desktop\\image\\red.png");
+        ImageIcon iconYellow = new ImageIcon("C:\\Users\\You Bastard!\\Desktop\\image\\yellow.png");
         int theRow = 35;
         int row =  rows - 1;
 
 
         int column = Integer.parseInt(button.getName());
 
-        // todo: fix that bug aight?
-        // bug: if any player presses a column that is fulled we will get out of bound.
         for (int i = 5; i >=0 ; i--) {
             if (row == 0)
                 break;
@@ -92,6 +86,15 @@ public class GUI extends JFrame {
             System.out.println("c moves " + columnMoves[column]);
             columnMoves[column]++;
         }
+
+        // checking for the winner
+        Game game = new Game();
+        if (game.winner(board,"R")){
+        
+            JOptionPane.showMessageDialog(null, "Player1 has won");
+        }
+
+
         Position position = new Position(board.board);
         Solver solver = new Solver(position);
         int AIplay = solver.solve(position);
@@ -121,12 +124,6 @@ public class GUI extends JFrame {
 
 
         // checking for the winner
-        Game game = new Game();
-        if (game.winner(board,"R")){
-
-            JOptionPane.showMessageDialog(null, "Player1 has won");
-        }
-
         if (game.winner(board,"Y")){
 
             JOptionPane.showMessageDialog(null, "Player2 has won");
