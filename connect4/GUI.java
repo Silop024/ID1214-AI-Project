@@ -1,4 +1,4 @@
-package com.ai.project;
+package connect4;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,19 +14,20 @@ public class GUI extends JFrame {
     private final int rows = 6;
     private int counter = 0; // is used for player's turn
 
-    int[] columnMoves = {0,0,0,0,0,0,0};
+    private int[] columnMoves = {0,0,0,0,0,0,0};
 
 
     // Constructor, making an empty grid
     public GUI() {
         board = new Board();
-        ImageIcon iconEmpty = new ImageIcon("C:\\Users\\You Bastard!\\Desktop\\image\\empty.png");
+        ImageIcon iconEmpty = new ImageIcon("C:\\Users\\chimp\\Desktop\\AIProject-v2\\ProjectAI\\src\\connect4\\images\\empty.png");
 
         frame = new JFrame("Connect4 - BreadComrade, Inc"); // title of the game
         frame.setSize(750,650);  // size of the frame
         frame.setLocationRelativeTo(null); // frame will open in the middle of screen
 
         panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        
 
         //initializing the grid
         for(int row = 0; row < rows; row++)
@@ -62,8 +63,8 @@ public class GUI extends JFrame {
 
     // all the shit happens here
     public void updater(JButton button) {
-        ImageIcon iconRed = new ImageIcon("C:\\Users\\You Bastard!\\Desktop\\image\\red.png");
-        ImageIcon iconYellow = new ImageIcon("C:\\Users\\You Bastard!\\Desktop\\image\\yellow.png");
+        ImageIcon iconRed = new ImageIcon("C:\\Users\\chimp\\Desktop\\AIProject-v2\\ProjectAI\\src\\connect4\\images\\red.png");
+        ImageIcon iconYellow = new ImageIcon("C:\\Users\\chimp\\Desktop\\AIProject-v2\\ProjectAI\\src\\connect4\\images\\yellow.png");
         int theRow = 35;
         int row =  rows - 1;
 
@@ -88,12 +89,13 @@ public class GUI extends JFrame {
             board.addPiece(column,"R");
             System.out.println(board);
             counter++;
+            System.out.println("c moves " + columnMoves[column]);
             columnMoves[column]++;
         }
-        Position position = new Position(board.board,columnMoves,counter);
+        Position position = new Position(board.board);
         Solver solver = new Solver(position);
-        solver.negamax(position, -21, 21);
-        System.out.println("bitch"+solver.playedColumn);
+        int AIplay = solver.solve(position);
+        System.out.println("bitch "+ AIplay);
         System.out.println(position);
 
         theRow = 35;
@@ -101,19 +103,20 @@ public class GUI extends JFrame {
         for (int i = 5; i >=0 ; i--) {
             if (row == 0)
                 break;
-            if (board.hasPiece(row, solver.playedColumn)) {
+            if (board.hasPiece(row, solver.getMove())) {
                 theRow = theRow - 7;
                 row--;
             }
         }
-        if (counter % 2 == 1 &&!board.hasPiece(row,solver.playedColumn)) {
+        if (counter % 2 == 1 &&!board.hasPiece(row,AIplay)) {
 
-                JButton bt =(JButton)panel.getComponent(theRow + solver.playedColumn);
+                JButton bt =(JButton)panel.getComponent(theRow + AIplay);
                 bt.setIcon(iconYellow);
-                board.addPiece(solver.playedColumn, "Y");
+                board.addPiece(AIplay, "Y");
                 System.out.println(board);
                 counter++;
-                columnMoves[solver.playedColumn]++;
+                System.out.println("c moves " + columnMoves[AIplay]);
+                columnMoves[AIplay]++;
             }
 
 

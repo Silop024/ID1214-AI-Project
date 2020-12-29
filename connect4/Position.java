@@ -1,4 +1,4 @@
-package com.ai.project;
+package connect4;
 
 
 import java.util.Arrays;
@@ -27,25 +27,28 @@ public class Position
 		this.moves = moves;
 	}
 
-	public Position(Board.Piece[][] ofShit, int[]columnMoves, int moves)
+	public Position(Board.Piece[][] ofShit)
 	{
 		int [][] grid = new int[WIDTH][HEIGHT];
+		int[] colMoves = new int[7];
+		int mov = 0;
 		for(int i = 0; i < HEIGHT; i++)
 			for (int j = 0; j < WIDTH; j++){
-				if (ofShit[i][j] == null)
+				if(ofShit[i][j] == null)
 					grid[j][i] = 0;
 				else {
 					if (ofShit[i][j].getColor().equals("R"))
 						grid[j][i] = 1;
 					if (ofShit[i][j].getColor().equals("Y"))
 						grid[j][i] = 2;
-
+					colMoves[j]++;
+					mov++;
 				}
 //				System.out.println(grid[j][i]);
 			}
 		this.grid = grid;
-			this.columnMoves = columnMoves;
-			this.moves = moves;
+		this.columnMoves = colMoves;
+		this.moves = mov;
 	}
 
 
@@ -199,6 +202,10 @@ public class Position
 		return moves;
 	}
 
-
+	public void reset()
+	{
+		for(int i = 0; i < WIDTH; i++)
+			columnMoves[i] = 0;
+	}
 
 }
