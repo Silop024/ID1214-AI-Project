@@ -20,7 +20,7 @@ public class GUI extends JFrame {
     // Constructor, making an empty grid
     public GUI() {
         board = new Board();
-        ImageIcon iconEmpty = new ImageIcon("/home/amir/Desktop/Image/empty.png");
+        ImageIcon iconEmpty = new ImageIcon("C:\\Users\\You Bastard!\\Desktop\\image\\empty.png");
 
         frame = new JFrame("Connect4 - BreadComrade, Inc"); // title of the game
         frame.setSize(750,650);  // size of the frame
@@ -62,8 +62,8 @@ public class GUI extends JFrame {
 
     // all the shit happens here
     public void updater(JButton button) {
-        ImageIcon iconRed = new ImageIcon("/home/amir/Desktop/Image/red.png");
-        ImageIcon iconYellow = new ImageIcon("/home/amir/Desktop/Image/yellow.png");
+        ImageIcon iconRed = new ImageIcon("C:\\Users\\You Bastard!\\Desktop\\image\\red.png");
+        ImageIcon iconYellow = new ImageIcon("C:\\Users\\You Bastard!\\Desktop\\image\\yellow.png");
         int theRow = 35;
         int row =  rows - 1;
 
@@ -73,6 +73,8 @@ public class GUI extends JFrame {
         // todo: fix that bug aight?
         // bug: if any player presses a column that is fulled we will get out of bound.
         for (int i = 5; i >=0 ; i--) {
+            if (row == 0)
+                break;
             if (board.hasPiece(row,column)) {
                 theRow = theRow - 7;
                 row--;
@@ -97,6 +99,8 @@ public class GUI extends JFrame {
         theRow = 35;
         row = 5;
         for (int i = 5; i >=0 ; i--) {
+            if (row == 0)
+                break;
             if (board.hasPiece(row, solver.playedColumn)) {
                 theRow = theRow - 7;
                 row--;
