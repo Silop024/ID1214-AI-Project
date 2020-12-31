@@ -127,13 +127,13 @@ public class Board
     
     public String  toString(){
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < WIDTH; i++) {
-			for (int j = 0; j < HEIGHT; j++) {
+		for (int i = HEIGHT - 1; i >= 0; i--) {
+			for (int j = 0; j < WIDTH; j++) {
 				sb.append("|");
-				if (board[i][j] == 0)
+				if (board[j][i] == 0)
 					sb.append("_");
 				else
-					sb.append(board[i][j]);
+					sb.append(board[j][i]);
 				sb.append("|");
 //				System.out.println(grid[j][i]);
 			}

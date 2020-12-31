@@ -14,17 +14,27 @@ public class Solver
     {
     	nodesChecked++;
     	int loseCheck = parent.opponentWinning();
-    	if(loseCheck >= 0) 
+    	int score = 0;
+    	if(isMaximizing)
+    		score = -21;
+    	else 
+    		score = 21;
+    	
+		if(loseCheck >= 0) 
     	{
+    		System.out.println("Opponent almost won on column " + loseCheck);
     		playedColumn = loseCheck;
-    		return -(43 - parent.getMoves()) / 2;
+    		if(isMaximizing)
+    			score = -(42 - parent.getMoves()) / 2;
+    		else
+    			score = (43 - parent.getMoves()) / 2;
     	}
         if(depth == 0 || parent.getMoves() == 42)
             return 0;
 
         if(isMaximizing)
         {
-            int score = -21;
+            //score = -21;
             for(int i = 0; i < 7; i++)
             {
                 if(parent.isPlayable(moveOrder[i]))
@@ -49,7 +59,7 @@ public class Solver
         }
         else
         {
-            int score = 21;
+            //score = 21;
             for(int i = 0; i < 7; i++)
             {
                 if(parent.isPlayable(moveOrder[i]))
@@ -91,22 +101,23 @@ public class Solver
     public int solve(Board board)
     {
     	nodesChecked = 0;
-    	int min = -(42 - board.getMoves())/2;
-    	int max = (43 - board.getMoves())/2;
-    	while(min < max)
-    	{
-    		int med = min + (max - min)/2;
-    		if(med <= 0 && min/2 < med)
-    			med = min/2;
-    		else if(med >= 0 && max/2 > med)
-    			med = max/2;
-    		int r = minimax(board, 13, true, med, med + 1);
-    		if(r <= med)
-    			max = r;
-    		else
-    			min = r;
-    		evaluation = min;
-    	}
+//    	int min = -(42 - board.getMoves())/2;
+//    	int max = (43 - board.getMoves())/2;
+//    	while(min < max)
+//    	{
+//    		int med = min + (max - min)/2;
+//    		if(med <= 0 && min/2 < med)
+//    			med = min/2;
+//    		else if(med >= 0 && max/2 > med)
+//    			med = max/2;
+//    		int r = minimax(board, 13, true, med, med + 1);
+//    		if(r <= med)
+//    			max = r;
+//    		else
+//    			min = r;
+//    		evaluation = min;
+//    	}
+    	evaluation = minimax(board, 12, true, -21, 21);
         return playedColumn;
     }
 }
