@@ -91,6 +91,7 @@ public class GUI extends JFrame
             Solver s = new Solver();
             int aiMove = s.solve(board2);
             System.out.println("AI SCORE = " + s.evaluation);
+            System.out.println("Nodes checked " + s.nodesChecked);
             
             try{
             	if(board.isPlayable(aiMove))

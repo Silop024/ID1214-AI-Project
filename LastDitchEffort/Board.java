@@ -90,6 +90,18 @@ public class Board
 		moves++;
 		columnMoves[column]++;
     }
+    
+    public int opponentWinning()
+    {
+    	for(int column = 0; column < WIDTH; column++)
+    	{
+    		if(this.isWinningMove(column))
+    		{
+    			return column;
+    		}
+    	}
+    	return -1;
+    }
 
     public int getMoves()
     {

@@ -5,13 +5,21 @@ public class Solver
     private int[] moveOrder = {3,2,4,1,5,0,6};
     private int playedColumn;
     public int evaluation;
+    public int nodesChecked;
 
     
     public Solver() {}
 
     public int minimax(Board parent, int depth, boolean isMaximizing, int alpha, int beta)
     {
-        if(depth == 0)
+    	nodesChecked++;
+    	int loseCheck = parent.opponentWinning();
+    	if(loseCheck >= 0) 
+    	{
+    		playedColumn = loseCheck;
+    		return -(43 - parent.getMoves()) / 2;
+    	}
+        if(depth == 0 || parent.getMoves() == 42)
             return 0;
 
         if(isMaximizing)
@@ -46,7 +54,7 @@ public class Solver
             {
                 if(parent.isPlayable(moveOrder[i]))
                 {
-                    if(parent.isWinningMove(i))
+                    if(parent.isWinningMove(moveOrder[i]))
 					{
 						return -(43 - parent.getMoves()) / 2;
 					}
@@ -56,7 +64,9 @@ public class Solver
                     score = min(score, minimax(child, depth - 1, true, alpha, beta));
                     beta = min(beta, score);
                     if(beta <= alpha)
+                    {
                     	break;
+                    }
                 }
 
             }
@@ -80,7 +90,23 @@ public class Solver
 
     public int solve(Board board)
     {
-        evaluation = minimax(board, 12, true, -21, 21);
+    	nodesChecked = 0;
+    	int min = -(42 - board.getMoves())/2;
+    	int max = (43 - board.getMoves())/2;
+    	while(min < max)
+    	{
+    		int med = min + (max - min)/2;
+    		if(med <= 0 && min/2 < med)
+    			med = min/2;
+    		else if(med >= 0 && max/2 > med)
+    			med = max/2;
+    		int r = minimax(board, 13, true, med, med + 1);
+    		if(r <= med)
+    			max = r;
+    		else
+    			min = r;
+    		evaluation = min;
+    	}
         return playedColumn;
     }
 }
