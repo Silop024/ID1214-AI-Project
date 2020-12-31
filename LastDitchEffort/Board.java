@@ -2,8 +2,8 @@ package connect4;
 
 public class Board
 {
-    private static final int WIDTH  = 7;
-    private static final int HEIGHT = 6;
+    private final int WIDTH  = 7;
+    private final int HEIGHT = 6;
 
     private int[] columnMoves = new int[WIDTH];
 	private int moves;
@@ -13,22 +13,49 @@ public class Board
     {
 		for (int i = 0; i < WIDTH;i++ )
 		{
-            for (int j =0; j < HEIGHT; j++)
+            for (int j = 0; j < HEIGHT; j++)
                 this.board[i][j] = 0;
             this.columnMoves[i] = 0;
 		}
+		this.moves = 0;
     }
 
     public Board(final Board b)
     {
-		board = b.board;
-        moves = b.moves;
-        columnMoves = b.columnMoves;
+		for(int i = 0; i < WIDTH; i++)
+			for(int j = 0; j < HEIGHT; j++)
+			{
+				this.board[i][j] = b.board[i][j];
+				if(b.board[i][j] != 0)
+					this.columnMoves[i]++;
+			}
+        this.moves = b.moves;
+    }
+    
+    public Board(int[][] board, int[] columnMoves, int moves) 
+    {
+		
+	}
+
+	public Board copy(Board b)
+    {
+    	int[][] board = new int[WIDTH][HEIGHT];
+    	int[] columnMoves = new int[WIDTH];
+    	for(int i = 0; i < WIDTH; i++)
+			for(int j = 0; j < HEIGHT; j++)
+			{
+				board[i][j] = b.board[i][j];
+				if(b.board[i][j] != 0)
+					columnMoves[i]++;
+			}
+    	int moves = b.getMoves();
+    	Board t = new Board(board, columnMoves, moves);
+    	return t;  	
     }
 
     public boolean isPlayable(int column)
     {
-        return this.columnMoves[column] < HEIGHT;
+        return columnMoves[column] < HEIGHT;
     }
 
     public boolean isWinningMove(int column)
@@ -59,24 +86,31 @@ public class Board
 
     public void addPiece(int column)
     {
-        this.board[column][columnMoves[column]] = 1 + (moves % 2);
-		this.moves++;
-		this.columnMoves[column]++;
+        board[column][columnMoves[column]] = 1 + (moves % 2);
+		moves++;
+		columnMoves[column]++;
     }
 
     public int getMoves()
     {
-        return this.moves;
+        return moves;
     }
 
     public int getColumnMoves(int column)
 	{
-		return this.columnMoves[column];
+		return columnMoves[column];
 	}
     
     public int[][] getBoard()
     {
-    	return this.board;
+    	return board;
+    }
+    
+    public void setBoard(int[][] b)
+    {
+    	for(int i = 0; i < WIDTH; i++)
+			for(int j = 0; j < HEIGHT; j++)
+				this.board[i][j] = b[i][j];
     }
     
     public String  toString(){

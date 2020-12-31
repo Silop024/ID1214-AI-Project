@@ -10,11 +10,13 @@ public class GUI extends JFrame
     private final JFrame frame;
     private final JPanel panel;
 
-    private static Board board;
+    private Board board;
+    private Board board2;
 
     public GUI()
     {
         board = new Board();
+        //board2 = new Board();
 
         ImageIcon iconEmpty = new ImageIcon("C:\\Users\\chimp\\Desktop\\AIProject-v2\\ProjectAI\\src\\connect4\\images\\empty.png");
 
@@ -57,6 +59,7 @@ public class GUI extends JFrame
            
         int row = 5;
         int theRow = 35;
+        board2 = new Board(board);
 
         if(1 + (board.getMoves() % 2) == 1)
         {
@@ -85,9 +88,9 @@ public class GUI extends JFrame
         else
         {
         	System.out.println("AI playing");
-            Board ai = new Board(board);
-            Solver s = new Solver(ai);
-            int aiMove = s.solve();
+            //Board ai = new Board(board);
+            Solver s = new Solver();
+            int aiMove = s.solve(board2);
             
             try{
             	if(board.isPlayable(aiMove))
