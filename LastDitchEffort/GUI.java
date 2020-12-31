@@ -57,7 +57,7 @@ public class GUI extends JFrame
         ImageIcon iconRed = new ImageIcon("C:\\Users\\chimp\\Desktop\\AIProject-v2\\ProjectAI\\src\\connect4\\images\\red.png");
         ImageIcon iconYellow = new ImageIcon("C:\\Users\\chimp\\Desktop\\AIProject-v2\\ProjectAI\\src\\connect4\\images\\yellow.png");
            
-        int row = 5;
+        int row = 0;
         int theRow = 35;
         board2 = new Board(board);
 
@@ -68,50 +68,50 @@ public class GUI extends JFrame
             
             if(board.isPlayable(column))
             {
-            	for(int i = 5; i >= 0 ; i--) {
-                    if (row == 0)
+            	for(int i = 0; i < 6; i++) {
+                    if (row == 5)
                         break;
                     if(board.getBoard()[column][i] != 0) {
                         theRow = theRow - 7;
-                        row--;
+                        row++;
                     }
                 }
                 JButton jb = (JButton) panel.getComponent(column + theRow);
                 jb.setIcon(iconRed);
-                board.addPiece(column);
                 if(board.isWinningMove(column))
                 {
                     JOptionPane.showMessageDialog(null, "Red player has won");
                 }
+                board.addPiece(column);
             }
         }
         else
         {
         	System.out.println("AI playing");
-            //Board ai = new Board(board);
             Solver s = new Solver();
             int aiMove = s.solve(board2);
+            System.out.println("AI SCORE = " + s.evaluation);
             
             try{
             	if(board.isPlayable(aiMove))
                 {
-                	for(int i = 5; i >= 0 ; i--) 
+                	for(int i = 0; i < 6; i++) 
                 	{
-                        if (row == 0)
+                        if (row == 5)
                             break;
                         if(board.getBoard()[aiMove][i] != 0) 
                         {
                             theRow = theRow - 7;
-                            row--;
+                            row++;
                         }
                     }
                 	JButton jb = (JButton) panel.getComponent(aiMove + theRow);
                 	jb.setIcon(iconYellow);
-                	board.addPiece(aiMove);
                 	if(board.isWinningMove(aiMove))
                 	{
                     	JOptionPane.showMessageDialog(null, "Yellow AI has won");
                 	}
+                	board.addPiece(aiMove);
                 }
             } catch (Exception e) {
                 System.out.println("Stinky AI");
