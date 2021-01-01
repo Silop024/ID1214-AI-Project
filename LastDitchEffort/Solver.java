@@ -13,28 +13,27 @@ public class Solver
     public int minimax(Board parent, int depth, boolean isMaximizing, int alpha, int beta)
     {
     	nodesChecked++;
-    	int loseCheck = parent.opponentWinning();
-    	int score = 0;
-    	if(isMaximizing)
-    		score = -21;
-    	else 
-    		score = 21;
-    	
-		if(loseCheck >= 0) 
-    	{
-    		System.out.println("Opponent almost won on column " + loseCheck);
-    		playedColumn = loseCheck;
-    		if(isMaximizing)
-    			score = -(42 - parent.getMoves()) / 2;
-    		else
-    			score = (43 - parent.getMoves()) / 2;
-    	}
+//    	int loseCheck = parent.opponentWinning();
+//    	int score = 0;
+//    	if(isMaximizing)
+//    		score = -21;
+//    	else 
+//    		score = 21;
+//    	
+//		if(loseCheck >= 0) 
+//    	{
+//    		playedColumn = loseCheck;
+//    		if(isMaximizing)
+//    			score = -(42 - parent.getMoves()) / 2;
+//    		else
+//    			score = (43 - parent.getMoves()) / 2;
+//    	}
         if(depth == 0 || parent.getMoves() == 42)
             return 0;
 
         if(isMaximizing)
         {
-            //score = -21;
+            int score = -21;
             for(int i = 0; i < 7; i++)
             {
                 if(parent.isPlayable(moveOrder[i]))
@@ -59,7 +58,7 @@ public class Solver
         }
         else
         {
-            //score = 21;
+            int score = 21;
             for(int i = 0; i < 7; i++)
             {
                 if(parent.isPlayable(moveOrder[i]))
@@ -101,6 +100,15 @@ public class Solver
     public int solve(Board board)
     {
     	nodesChecked = 0;
+    	int loseCheck = board.opponentWinning();
+    	if(loseCheck != -1) 
+    	{
+    		evaluation = -(42 - board.getMoves()) / 2;
+    		return loseCheck;
+    	}
+//    	for(int i = 0; i < 7; i++)
+//    		if(board.openAlignment(moveOrder[i]) != -1) {System.out.println("found");
+//    			return board.openAlignment(moveOrder[i]);}
 //    	int min = -(42 - board.getMoves())/2;
 //    	int max = (43 - board.getMoves())/2;
 //    	while(min < max)

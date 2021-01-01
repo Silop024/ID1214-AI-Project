@@ -93,16 +93,39 @@ public class Board
     
     public int opponentWinning()
     {
+    	moves++;
     	for(int column = 0; column < WIDTH; column++)
     	{
-    		if(this.isWinningMove(column))
+    		if(this.isPlayable(column) && this.isWinningMove(column))
     		{
+    			moves--;
     			return column;
     		}
     	}
+    	moves--;
     	return -1;
     }
-
+    
+    public int openAlignment(int column)
+    {
+    	int player = 1 + (moves % 2);
+		int row = columnMoves[column];
+		
+		for(int yDirection = -1; yDirection <= 1; yDirection++)
+		{
+			int matches = 0;
+			for(int xDirection = -1; xDirection <= 1; xDirection += 2)
+				for(int x = column + xDirection, y = columnMoves[column] + xDirection * yDirection; x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT && board[x][y] == player; matches++)
+				{
+					x += xDirection;
+					y += xDirection * yDirection;
+				}
+			if(matches >= 2)
+				return column;
+		}
+		return -1;
+    }
+    
     public int getMoves()
     {
         return moves;
