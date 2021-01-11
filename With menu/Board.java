@@ -95,13 +95,16 @@ public class Board
     
     public int opponentWinning()
     {
+	moves++;
     	for(int column = 0; column < WIDTH; column++)
     	{
-    		if(this.isWinningMove(column))
+    		if(this.isPlayable(column) && this.isWinningMove(column))
     		{
+			moves--;
     			return column;
     		}
     	}
+	moves--;
     	return -1;
     }
 
