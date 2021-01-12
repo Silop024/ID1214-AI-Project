@@ -114,7 +114,7 @@ public class SinglePlayer
                 	board.addPiece(aiMove);
                 }
             } catch (Exception e) {
-                System.out.println("Stinky AI");
+                System.out.println("Bad AI");
             }
         }
         System.out.println(board);
