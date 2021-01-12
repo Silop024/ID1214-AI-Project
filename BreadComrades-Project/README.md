@@ -1,4 +1,6 @@
-/* Connect 4 by Amir Ali Safizadeh and Jack Webb */
+/* Connect 4 */
+by Amir Ali Safizadeh and Jack Webb
+Last updated 2020-01-12
 
 HOW TO RUN:
 
