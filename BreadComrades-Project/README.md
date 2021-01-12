@@ -4,7 +4,7 @@ Last updated 2020-01-12
 
 HOW TO RUN:
 
-Double click the runnable .jar file.
+Double click Connect4.jar.
 
 HOW TO SEE THE SOURCE CODE:
 
