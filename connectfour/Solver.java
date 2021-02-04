@@ -57,7 +57,7 @@ public class Solver
                     	//then chooses the one with the highest score.
                     	for(int j = 1; j < 7; j++) 
                     	{
-                    		if(scores[moveOrder[j]] > move[0])
+                    		if(scores[moveOrder[j]] > move[0] && parent.isPlayable(moveOrder[j]))
                     		{
                     			move[1] = moveOrder[j];
                             	move[0] = scores[moveOrder[j]];
@@ -126,9 +126,9 @@ public class Solver
     	nodesChecked = 0;
     	//Wincheck was used in case it didnt see a win for some reason
     	//but it does now
-    	//for(int i = 0; i < 7; i++)
-    	//	if(board.isPlayable(i) && board.isWinningMove(i))
-    	//		return i;
+    	for(int i = 0; i < 7; i++)
+    		if(board.isPlayable(i) && board.isWinningMove(i))
+    			return i;
     	//Losecheck used if the AI for some reason is very dumb
     	//and doesn't see an imminent loss.
     	int loseCheck = board.opponentWinning();
