@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Connect4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/BreadComrades-Project/Connect4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
