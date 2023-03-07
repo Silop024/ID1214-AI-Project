@@ -10,9 +10,7 @@ abstract class Game
     protected final JPanel panel;
     protected final Board board;
 
-    private final int ROWS = 6;
-    private final int COLS = 7;
-    protected int counter = 0;
+    protected int playedMoves = 0;
 
     public Game()
     {
@@ -29,6 +27,8 @@ abstract class Game
 
         ImageIcon iconEmpty = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/empty.png")));
 
+        int ROWS = 6;
+        int COLS = 7;
         for (int row = 0; row < ROWS; row++)
             for (int column = 0; column < COLS; column++) {
                 JButton jb = new JButton();

@@ -1,5 +1,8 @@
 package connectfour;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board
 {
     private final int WIDTH = 7;
@@ -71,7 +74,7 @@ public class Board
     {
         moves++;
         for (int column = 0; column < WIDTH; column++) {
-            if (this.isPlayable(column) && this.isWinningMove(column)) {
+            if (isPlayable(column) && isWinningMove(column)) {
                 moves--;
                 return column;
             }
@@ -114,6 +117,17 @@ public class Board
     public int getPiece(int row, int column)
     {
         return board[column][row];
+    }
+
+
+    public List<Integer> getAvailableColumns()
+    {
+        List<Integer> possibleMoves = new ArrayList<>();
+
+        for (int move : columnMoves) {
+            if (isPlayable(move)) possibleMoves.add(move);
+        }
+        return possibleMoves;
     }
 
     public boolean winner(Board board, int player)

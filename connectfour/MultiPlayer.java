@@ -2,9 +2,6 @@ package connectfour;
 
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class MultiPlayer extends Game
@@ -29,18 +26,18 @@ public class MultiPlayer extends Game
             }
         }
 
-        if (counter % 2 == 0 && !board.hasPiece(column, row)) {
+        if (playedMoves % 2 == 0 && !board.hasPiece(column, row)) {
             JButton bt = (JButton) panel.getComponent(theRow + column);
             bt.setIcon(iconRed);
             board.addPiece(column);
             System.out.println(board);
-            counter++;
+            playedMoves++;
         } else if (!board.hasPiece(column, row)) {
             JButton bt = (JButton) panel.getComponent(theRow + column);
             bt.setIcon(iconYellow);
             board.addPiece(column);
             System.out.println(board);
-            counter++;
+            playedMoves++;
         }
 
         if (board.winner(board, 1)) {
