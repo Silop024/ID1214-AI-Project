@@ -14,7 +14,7 @@ public class Solver
     //Score, column, depth
     public int[] move = {-21, 3, 13};
 
-    private final int maxEvalTimeSeconds = 10;
+    private final int maxEvalTimeMillis = 10000;
     private long startTimeMillis = 0;
 
 
@@ -24,7 +24,7 @@ public class Solver
     {
         nodesChecked++;
 
-        if (depth == 0 || parent.getMoves() == 42) return 0;
+        if (depth == 0 || parent.getMoves() == 42 || (System.currentTimeMillis() - startTimeMillis) >= maxEvalTimeMillis) return 0;
 
         int score;
         if (isMaximizing) {
